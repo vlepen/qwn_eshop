@@ -1,6 +1,7 @@
 package com.garwan.eshop.controller;
 
 import com.garwan.eshop.model.CreateOrderRequest;
+import com.garwan.eshop.model.EshopUser;
 import com.garwan.eshop.model.Order;
 import com.garwan.eshop.service.OrderService;
 import java.net.URI;
@@ -9,6 +10,7 @@ import java.util.List;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,14 +29,17 @@ public class OrderController {
     }
 
     @PostMapping(consumes = "application/json", produces = "application/json")
-    public ResponseEntity<Order> create(@NotNull @Valid @RequestBody CreateOrderRequest createOrderRequest)
+    public ResponseEntity<Order> create(
+        @NotNull @Valid @RequestBody CreateOrderRequest createOrderRequest,
+        @AuthenticationPrincipal EshopUser eshopUser
+    )
         throws URISyntaxException {
-        Order order = orderService.create(createOrderRequest);
+        Order order = orderService.create(createOrderRequest, eshopUser);
         return ResponseEntity.created(new URI("/order/" + order.getId())).body(order);
     }
 
     @GetMapping(produces = "application/json")
-    public ResponseEntity<List<Order>> getAll() {
-        return ResponseEntity.ok(orderService.getAll());
+    public ResponseEntity<List<Order>> getAll(@AuthenticationPrincipal EshopUser eshopUser) {
+        return ResponseEntity.ok(orderService.getAll(eshopUser.getId()));
     }
 }

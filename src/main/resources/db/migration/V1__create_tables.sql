@@ -30,11 +30,22 @@ CREATE TABLE product_animal_category
     constraint product_animal_category_pk primary key (product_id, animal_category_id)
 );
 
+CREATE TABLE eshop_user
+(
+    id       bigserial PRIMARY KEY NOT NULL,
+    username varchar(255)          NOT NULL,
+    password varchar(255)          NOT NULL,
+    email    varchar(255)          NOT NULL,
+    CONSTRAINT eshop_user_name_uq UNIQUE (username)
+);
+
 CREATE TABLE eshop_order
 (
-    id          bigserial PRIMARY KEY NOT NULL,
-    total_price numeric(19, 2),
-    time        date
+    id            bigserial PRIMARY KEY NOT NULL,
+    total_price   numeric(19, 2),
+    time          date,
+    eshop_user_id bigint                NOT NULL,
+    constraint eshop_user_id_fk foreign key (eshop_user_id) references eshop_user (id)
 );
 
 CREATE TABLE order_product
@@ -45,20 +56,4 @@ CREATE TABLE order_product
     count      integer        NOT NULL,
     constraint order_fk foreign key (order_id) references eshop_order (id) ON DELETE CASCADE,
     constraint product_fk foreign key (product_id) references product (id)
-);
-
-CREATE TABLE eshop_user
-(
-    id       bigserial PRIMARY KEY NOT NULL,
-    username varchar(255)          NOT NULL,
-    email    varchar(255)          NOT NULL
-);
-
-CREATE TABLE eshop_user_order
-(
-    eshop_user_id  bigint NOT NULL,
-    eshop_order_id bigint NOT NULL,
-    constraint eshop_user_fk foreign key (eshop_user_id) references eshop_user (id),
-    constraint eshop_order_fk foreign key (eshop_order_id) references eshop_order (id),
-    constraint eshop_user_order_pk primary key (eshop_user_id, eshop_order_id)
 );

@@ -3,3 +3,6 @@ spring:
     url: jdbc:postgresql://localhost:5432/eshop?currentSchema=public
     username: postgres
     password: postgres
+
+jwt:
+  secret: i_like_java

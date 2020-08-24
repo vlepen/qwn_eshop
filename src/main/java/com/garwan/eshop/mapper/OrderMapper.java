@@ -1,5 +1,6 @@
 package com.garwan.eshop.mapper;
 
+import com.garwan.eshop.jpa.entity.User;
 import com.garwan.eshop.model.CreateOrderRequest;
 import com.garwan.eshop.model.Order;
 import java.util.List;
@@ -11,10 +12,11 @@ public final class OrderMapper {
     private OrderMapper() {
     }
 
-    public static com.garwan.eshop.jpa.entity.Order toOrder(CreateOrderRequest createOrderRequest) {
+    public static com.garwan.eshop.jpa.entity.Order toOrder(CreateOrderRequest createOrderRequest, User user) {
         com.garwan.eshop.jpa.entity.Order order = com.garwan.eshop.jpa.entity.Order.builder()
             .totalPrice(createOrderRequest.getTotalPrice())
             .time(createOrderRequest.getTime())
+            .user(user)
             .build();
         order.addItems(OrderProductMapper.toOrderProducts(createOrderRequest.getItems()));
         return order;
