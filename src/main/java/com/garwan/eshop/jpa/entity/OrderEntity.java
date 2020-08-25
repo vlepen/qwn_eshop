@@ -29,7 +29,7 @@ import static javax.persistence.GenerationType.SEQUENCE;
 @AllArgsConstructor
 @Data
 @EqualsAndHashCode
-public class Order {
+public class OrderEntity {
     @Id
     @GeneratedValue(generator = "order_id_generator", strategy = SEQUENCE)
     @SequenceGenerator(name = "order_id_generator", sequenceName = "eshop_order_id_seq", allocationSize = 1)
@@ -37,13 +37,13 @@ public class Order {
     @Column(name = "total_price")
     private BigDecimal totalPrice;
     @OneToMany(mappedBy = "order", orphanRemoval = true, cascade = CascadeType.ALL)
-    private List<OrderProduct> items;
+    private List<OrderProductEntity> items;
     private LocalDateTime time;
     @ManyToOne
     @JoinColumn(name="eshop_user_id", nullable=false)
-    private User user;
+    private UserEntity user;
 
-    public void addItems(List<OrderProduct> orderProducts) {
+    public void addItems(List<OrderProductEntity> orderProducts) {
         orderProducts.forEach(orderProduct -> orderProduct.setOrder(this));
         if (items == null) {
             items = new ArrayList<>();

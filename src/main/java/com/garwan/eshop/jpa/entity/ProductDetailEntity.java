@@ -17,6 +17,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.ToString;
 
 import static javax.persistence.GenerationType.SEQUENCE;
@@ -28,21 +29,23 @@ import static javax.persistence.GenerationType.SEQUENCE;
 @ToString(callSuper = true)
 @Builder
 @Data
-public class ProductDetail {
+public class ProductDetailEntity {
     @Id
     @GeneratedValue(generator = "product_id_generator", strategy = SEQUENCE)
     @SequenceGenerator(name = "product_id_generator", sequenceName = "product_id_seq", allocationSize = 1)
     private Long id;
     private String name;
+    @NonNull
     @ManyToMany
     @JoinTable(
         name = "product_animal_category",
         joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"),
         inverseJoinColumns = @JoinColumn(name = "animal_category_id", referencedColumnName = "id")
     )
-    private List<AnimalCategory> animalCategories;
+    private List<AnimalCategoryEntity> animalCategories;
     private BigDecimal price;
     private String description;
+    @NonNull
     @ElementCollection
     @CollectionTable(name = "product_gallery", joinColumns = @JoinColumn(name = "product_id"))
     @Column(name = "url")

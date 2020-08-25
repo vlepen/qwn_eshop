@@ -20,14 +20,14 @@ public class OrderService {
     }
 
     public Order create(CreateOrderRequest createOrderRequest, EshopUser eshopUser) {
-        return OrderMapper.fromOrder(orderRepository.save(OrderMapper.toOrder(
+        return OrderMapper.fromOrderEntity(orderRepository.save(OrderMapper.toOrderEntity(
             createOrderRequest,
             userRepository.findById(eshopUser.getId())
                 .orElseThrow(() -> new RuntimeException("Current user is no longer present in repository"))
         )));
     }
 
-    public List<Order> getAll(Long userId) {
-        return OrderMapper.fromOrders(orderRepository.findAllByUserId(userId));
+    public List<Order> findAllForUser(Long userId) {
+        return OrderMapper.fromOrderEntities(orderRepository.findAllByUserId(userId));
     }
 }

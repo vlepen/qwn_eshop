@@ -40,6 +40,6 @@ public class OrderController {
 
     @GetMapping(produces = "application/json")
     public ResponseEntity<List<Order>> getAll(@AuthenticationPrincipal EshopUser eshopUser) {
-        return ResponseEntity.ok(orderService.getAll(eshopUser.getId()));
+        return ResponseEntity.ok(orderService.findAllForUser(eshopUser.getId()));
     }
 }

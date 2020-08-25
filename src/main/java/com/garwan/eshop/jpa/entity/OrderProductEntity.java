@@ -16,21 +16,22 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Entity
-@IdClass(OrderProduct.OrderProductPK.class)
+@IdClass(OrderProductEntity.OrderProductPK.class)
 @Table(name = "order_product")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @EqualsAndHashCode
-public class OrderProduct {
+public class OrderProductEntity {
     @Id
     @Column(name = "product_id")
     private Long productId;
     @Id
     @ManyToOne
     @JoinColumn(name = "order_id", nullable = false)
-    private Order order;
+    @EqualsAndHashCode.Exclude
+    private OrderEntity order;
     private BigDecimal price;
     private Integer count;
 
@@ -40,6 +41,6 @@ public class OrderProduct {
     @EqualsAndHashCode
     public static class OrderProductPK implements Serializable {
         protected Long productId;
-        protected Order order;
+        protected OrderEntity order;
     }
 }

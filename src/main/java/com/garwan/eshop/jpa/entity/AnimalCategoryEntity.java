@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @EqualsAndHashCode
-public class AnimalCategory {
+public class AnimalCategoryEntity {
     @Id
     @GeneratedValue
     private Long id;

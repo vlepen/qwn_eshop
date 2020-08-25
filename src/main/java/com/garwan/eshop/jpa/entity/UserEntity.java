@@ -14,11 +14,11 @@ import static javax.persistence.GenerationType.SEQUENCE;
 
 @Entity
 @Table(name = "eshop_user")
-@Builder
+@Builder(toBuilder = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class User {
+public class UserEntity {
     @Id
     @GeneratedValue(generator = "eshop_user_id_generator", strategy = SEQUENCE)
     @SequenceGenerator(name = "eshop_user_id_generator", sequenceName = "eshop_user_id_seq", allocationSize = 1)

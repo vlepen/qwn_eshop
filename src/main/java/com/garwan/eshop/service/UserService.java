@@ -18,7 +18,7 @@ public class UserService {
     }
 
     public EshopUser create(CreateUserRequest createUserRequest) {
-        return EshopUserMapper.fromUser(userRepository.save(EshopUserMapper.toEshopUser(
+        return EshopUserMapper.fromUserEntity(userRepository.save(EshopUserMapper.toUserEntity(
             createUserRequest,
             bcryptEncoder.encode(createUserRequest.getPassword())
         )));

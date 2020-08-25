@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
@@ -14,6 +15,7 @@ import lombok.experimental.SuperBuilder;
 public class Product {
     private Long id;
     private String name;
+    @NonNull
     private List<AnimalCategory> animalCategories;
     private BigDecimal price;
 }

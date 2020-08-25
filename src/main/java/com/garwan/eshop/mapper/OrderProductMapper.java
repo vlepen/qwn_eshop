@@ -1,5 +1,6 @@
 package com.garwan.eshop.mapper;
 
+import com.garwan.eshop.jpa.entity.OrderProductEntity;
 import com.garwan.eshop.model.OrderProduct;
 import java.util.List;
 
@@ -9,27 +10,27 @@ public final class OrderProductMapper {
     private OrderProductMapper() {
     }
 
-    public static List<com.garwan.eshop.jpa.entity.OrderProduct> toOrderProducts(List<OrderProduct> orderProducts) {
+    public static List<OrderProductEntity> toOrderProductEntities(List<OrderProduct> orderProducts) {
         return orderProducts.stream()
-            .map(OrderProductMapper::toOrderProduct)
+            .map(OrderProductMapper::toOrderProductEntity)
             .collect(toList());
     }
 
-    public static com.garwan.eshop.jpa.entity.OrderProduct toOrderProduct(OrderProduct orderProduct) {
-        return com.garwan.eshop.jpa.entity.OrderProduct.builder()
+    public static OrderProductEntity toOrderProductEntity(OrderProduct orderProduct) {
+        return OrderProductEntity.builder()
             .productId(orderProduct.getProductId())
             .count(orderProduct.getCount())
             .price(orderProduct.getPrice())
             .build();
     }
 
-    public static List<OrderProduct> fromOrderProducts(List<com.garwan.eshop.jpa.entity.OrderProduct> orderProducts) {
+    public static List<OrderProduct> fromOrderProductEntities(List<OrderProductEntity> orderProducts) {
         return orderProducts.stream()
-            .map(OrderProductMapper::fromOrderProduct)
+            .map(OrderProductMapper::fromOrderProductEntity)
             .collect(toList());
     }
 
-    private static OrderProduct fromOrderProduct(com.garwan.eshop.jpa.entity.OrderProduct orderProduct) {
+    static OrderProduct fromOrderProductEntity(OrderProductEntity orderProduct) {
         return OrderProduct.builder()
             .productId(orderProduct.getProductId())
             .count(orderProduct.getCount())

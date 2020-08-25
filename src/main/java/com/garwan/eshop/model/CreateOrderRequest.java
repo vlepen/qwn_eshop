@@ -10,6 +10,7 @@ import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.PositiveOrZero;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NonNull;
 
 @Builder
 @Data
@@ -17,6 +18,7 @@ public class CreateOrderRequest {
     @NotNull
     @PositiveOrZero
     private BigDecimal totalPrice;
+    @NonNull
     @Valid
     @NotEmpty
     private List<OrderProduct> items;

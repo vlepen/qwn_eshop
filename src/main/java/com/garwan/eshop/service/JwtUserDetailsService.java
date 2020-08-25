@@ -1,6 +1,6 @@
 package com.garwan.eshop.service;
 
-import com.garwan.eshop.jpa.entity.User;
+import com.garwan.eshop.jpa.entity.UserEntity;
 import com.garwan.eshop.jpa.repository.UserRepository;
 import com.garwan.eshop.model.EshopUser;
 import java.util.ArrayList;
@@ -21,17 +21,17 @@ public class JwtUserDetailsService implements UserDetailsService {
 
     @Override
     public EshopUser loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<User> userCandidate = userRepository.findByUsername(username);
+        Optional<UserEntity> userCandidate = userRepository.findByUsername(username);
         if (!userCandidate.isPresent()) {
             throw new UsernameNotFoundException(format("User %s not found ", username));
         }
-        User user = userCandidate.get();
+        UserEntity userEntity = userCandidate.get();
         return new EshopUser(
-            user.getId(),
-            user.getUsername(),
-            user.getPassword(),
+            userEntity.getId(),
+            userEntity.getUsername(),
+            userEntity.getPassword(),
             new ArrayList<>(),
-            user.getEmail()
+            userEntity.getEmail()
         );
     }
 }

@@ -2,6 +2,7 @@ package com.garwan.eshop.controller;
 
 import com.garwan.eshop.model.Product;
 import com.garwan.eshop.model.ProductDetail;
+import com.garwan.eshop.model.ProductListFilter;
 import com.garwan.eshop.service.ProductService;
 import java.math.BigDecimal;
 import javax.validation.constraints.NotBlank;
@@ -39,6 +40,11 @@ public class ProductController {
         @NotBlank @RequestParam("namePart") String namePart,
         Pageable pageable
     ) {
-        return ResponseEntity.ok(productService.findByFilter(priceMin, priceMax, namePart, pageable));
+        return ResponseEntity.ok(productService.findByFilter(ProductListFilter.builder()
+            .priceMin(priceMin)
+            .priceMax(priceMax)
+            .namePart(namePart)
+            .pageable(pageable)
+            .build()));
     }
 }
