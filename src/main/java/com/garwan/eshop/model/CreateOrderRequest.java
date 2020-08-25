@@ -1,5 +1,6 @@
 package com.garwan.eshop.model;
 
+import com.garwan.eshop.model.annotation.SumOfCreateOrdertItems;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -14,11 +15,11 @@ import lombok.NonNull;
 
 @Builder
 @Data
+@SumOfCreateOrdertItems
 public class CreateOrderRequest {
     @NotNull
     @PositiveOrZero
     private BigDecimal totalPrice;
-    @NonNull
     @Valid
     @NotEmpty
     private List<OrderProduct> items;
