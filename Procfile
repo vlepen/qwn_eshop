@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -jar target/eshop-1.0-SNAPSHOT-exec.jar
+web: java -Dserver.port=$PORT $JAVA_OPTS -jar target/eshop-1.0-SNAPSHOT-exec.jar
